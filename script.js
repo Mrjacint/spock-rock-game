@@ -2,7 +2,7 @@ const playerScoreEl = document.getElementById("playerScore");
 const playerChoiceEl = document.getElementById("playerChoice");
 const computerScoreEl = document.getElementById("computerScore");
 const computerChoiceEl = document.getElementById("computerChoice");
-const resultText = document.getElementById("textResult");
+const resultText = document.getElementById("resultText");
 
 const playerRock = document.getElementById("playerRock");
 const playerPaper = document.getElementById("playerPaper");
@@ -25,7 +25,8 @@ const choices = {
   lizard: { name: "Lizard", defeats: ["paper", "spock"] },
   spock: { name: "Spock", defeats: ["scissors", "rock"] },
 };
-
+let playerscoreNumber = 0;
+let computerScoreNumber = 0;
 let computerChoice = "";
 
 // Reset all 'selected' icons
@@ -79,15 +80,34 @@ const displayComputerChoice = () => {
   }
 };
 
-const checkResult = () => {
+// Check result, incrase scores, update result text
+const updateScore = (playerChoice) => {
+  if (playerChoice === computerChoice) {
+    resultText.textContent = "It's a tie.";
+  } else {
+    const choice = choices[playerChoice];
+    if (choice.defeats.indexOf(computerChoice) > -1) {
+      resultText.textContent = "You Won!";
+      playerscoreNumber++;
+      playerScoreEl.textContent = playerscoreNumber;
+    } else {
+      resultText.textContent = "You Lost!";
+      computerScoreNumber++;
+      computerScoreEl.textContent = computerScoreNumber;
+    }
+  }
+};
+
+const checkResult = (playerChoice) => {
   resetSelected();
   computerRandomChoice();
   displayComputerChoice();
+  updateScore(playerChoice);
 };
 
 // Passing player selection value and style icons
 const select = (playerChoice) => {
-  checkResult();
+  checkResult(playerChoice);
   //   Add 'selected' styling & playerChosice
   switch (playerChoice) {
     case "rock":
