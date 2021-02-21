@@ -36,6 +36,18 @@ const resetSelected = () => {
   });
 };
 
+// Reset score & pleyer choice / computer choice
+const resetAll = () => {
+  resetSelected();
+  playerChoiceEl.textContent = "";
+  computerChoiceEl.textContent = "";
+  playerscoreNumber = 0;
+  playerScoreEl.textContent = playerscoreNumber;
+  computerScoreNumber = 0;
+  computerScoreEl.textContent = computerScoreNumber;
+  resultText.textContent = "";
+};
+
 // Random computer choice
 const computerRandomChoice = () => {
   const computerChoiceNumber = Math.random();
@@ -134,3 +146,6 @@ const select = (playerChoice) => {
       break;
   }
 };
+
+// On startup, set initial valuse
+resetAll();
